@@ -1,1 +1,2 @@
 E:\Dropbox\_VisualStudioSpace\GaussJordanRREF\GaussJordanRREF\bin\Debug\GaussJordanRREF.exe.config
+E:\Documents\GitHub\GaussJordan_RowReduction\GaussJordanRREF\bin\Debug\GaussJordanRREF.exe.config
