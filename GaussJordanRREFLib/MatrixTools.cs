@@ -9,8 +9,6 @@ namespace GaussJordanRREFLib
 {
     public class Matrix
     {
-        public Matrix() { }
-
         public BigInteger[,][] jma;
 
         public BigInteger[,][] InitializeJMA(int arrayLength, int rowDim, int columnDim)
@@ -25,9 +23,18 @@ namespace GaussJordanRREFLib
                 }
             }
 
-            localJMA[0, 0][1] = 23; localJMA[0, 1][1] = 07; localJMA[0, 2][1] = 03; localJMA[0, 3][1] = 1147;
-            localJMA[1, 0][1] = 05; localJMA[1, 1][1] = 19; localJMA[1, 2][1] = 17; localJMA[1, 3][1] = 1263;
-            localJMA[2, 0][1] = 13; localJMA[2, 1][1] = 01; localJMA[2, 2][1] = 11; localJMA[2, 3][1] = 0851;
+            localJMA[0, 0][1] = 23;
+            localJMA[0, 1][1] = 07;
+            localJMA[0, 2][1] = 03;
+            localJMA[0, 3][1] = 1147;
+            localJMA[1, 0][1] = 05;
+            localJMA[1, 1][1] = 19;
+            localJMA[1, 2][1] = 17;
+            localJMA[1, 3][1] = 1263;
+            localJMA[2, 0][1] = 13;
+            localJMA[2, 1][1] = 01;
+            localJMA[2, 2][1] = 11;
+            localJMA[2, 3][1] = 0851;
 
             for (int i = 0; i < localJMA.GetLength(0); i++)
             {
@@ -36,7 +43,6 @@ namespace GaussJordanRREFLib
                     localJMA[i, j][2] = 1;
                 }
             }
-
             return localJMA;
         }
 
@@ -60,7 +66,6 @@ namespace GaussJordanRREFLib
                         Console.Write("{0}", localResult);
                     }
                 }
-
                 Console.WriteLine();
             }
         }
@@ -68,11 +73,7 @@ namespace GaussJordanRREFLib
 
     public class MatrixOperator
     {
-        public MatrixOperator()
-        {
-        }
-
-        public static BigInteger[,][] AttemptRREF(BigInteger[,][] matrix)
+        public static BigInteger[,][] AttemptRref(BigInteger[,][] matrix)
         {
             BigInteger[,][] localMatrix = matrix;
             bool[] usedRows = new bool[matrix.GetLength(0)];
@@ -129,7 +130,8 @@ namespace GaussJordanRREFLib
             return localMatrix;
         }
 
-        private static BigInteger[,][] ColumnEliminationAddition(BigInteger[,][] matrix, int fromRowIndex1, int toTargetColumn)
+        private static BigInteger[,][] ColumnEliminationAddition(BigInteger[,][] matrix, int fromRowIndex1,
+            int toTargetColumn)
         {
             BigInteger[,][] localMatrix = matrix;
 
@@ -141,7 +143,8 @@ namespace GaussJordanRREFLib
             return localMatrix;
         }
 
-        private static BigInteger[,][] EliminationAddition(BigInteger[,][] matrix, int fromRowIndex1, int toTargetRow, int toTargetColumn)
+        private static BigInteger[,][] EliminationAddition(BigInteger[,][] matrix, int fromRowIndex1, int toTargetRow,
+            int toTargetColumn)
         {
             BigInteger[,][] localMatrix = matrix;
 
@@ -149,8 +152,9 @@ namespace GaussJordanRREFLib
 
             if (localMatrix[fromRowIndex1, toTargetColumn][1] != 0 && fromRowIndex1 != toTargetRow)
             {
-                BigInteger[] localMultiplier = Fraction.Divide(localMatrix[toTargetRow, toTargetColumn], localMatrix[fromRowIndex1, toTargetColumn]);
-                localMultiplier[1] = localMultiplier[1] * -1;
+                BigInteger[] localMultiplier = Fraction.Divide(localMatrix[toTargetRow, toTargetColumn],
+                    localMatrix[fromRowIndex1, toTargetColumn]);
+                localMultiplier[1] = localMultiplier[1]*-1;
 
                 BigInteger[,][] transformedRow = new BigInteger[1, localMatrix.GetLength(1)][];
 
@@ -205,34 +209,30 @@ namespace GaussJordanRREFLib
 
     public class Fraction
     {
-        public Fraction()
-        {
-        }
-
         #region Addition
 
         public static BigInteger[] Add(BigInteger[] fraction1, BigInteger[] fraction2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Add(fraction1[1], fraction1[2], fraction2[1], fraction2[2]);
             return localResult;
         }
 
         public static BigInteger[] Add(BigInteger numerator1, BigInteger numerator2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Add(numerator1, 1, numerator2, 1);
             return localResult;
         }
 
         public static BigInteger[] Add(BigInteger numerator1, BigInteger denominator1,
-                                                BigInteger numerator2, BigInteger denominator2)
+            BigInteger numerator2, BigInteger denominator2)
         {
             BigInteger[] localResult = new BigInteger[3];
 
             localResult[0] = 1;
-            localResult[1] = (numerator1 * denominator2) + (numerator2 * denominator1);
-            localResult[2] = (denominator1 * denominator2);
+            localResult[1] = (numerator1*denominator2) + (numerator2*denominator1);
+            localResult[2] = (denominator1*denominator2);
 
             localResult = Reduction(localResult);
 
@@ -245,26 +245,26 @@ namespace GaussJordanRREFLib
 
         public static BigInteger[] Subtract(BigInteger[] fraction1, BigInteger[] fraction2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Subtract(fraction1[1], fraction1[2], fraction2[1], fraction2[2]);
             return localResult;
         }
 
         public static BigInteger[] Subtract(BigInteger numerator1, BigInteger numerator2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Subtract(numerator1, 1, numerator2, 1);
             return localResult;
         }
 
         public static BigInteger[] Subtract(BigInteger numerator1, BigInteger denominator1,
-                                            BigInteger numerator2, BigInteger denominator2)
+            BigInteger numerator2, BigInteger denominator2)
         {
             BigInteger[] localResult = new BigInteger[3];
 
             localResult[0] = 2;
-            localResult[1] = (numerator1 * denominator2) - (numerator2 * denominator1);
-            localResult[2] = (denominator1 * denominator2);
+            localResult[1] = (numerator1*denominator2) - (numerator2*denominator1);
+            localResult[2] = (denominator1*denominator2);
 
             localResult = Reduction(localResult);
 
@@ -277,26 +277,26 @@ namespace GaussJordanRREFLib
 
         public static BigInteger[] Multiply(BigInteger[] fraction1, BigInteger[] fraction2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Multiply(fraction1[1], fraction1[2], fraction2[1], fraction2[2]);
             return localResult;
         }
 
         public static BigInteger[] Multiply(BigInteger numerator1, BigInteger numerator2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Multiply(numerator1, 1, numerator2, 1);
             return localResult;
         }
 
         public static BigInteger[] Multiply(BigInteger numerator1, BigInteger denominator1,
-                                        BigInteger numerator2, BigInteger denominator2)
+            BigInteger numerator2, BigInteger denominator2)
         {
             BigInteger[] localResult = new BigInteger[3];
 
             localResult[0] = 3;
-            localResult[1] = (numerator1 * numerator2);
-            localResult[2] = (denominator1 * denominator2);
+            localResult[1] = (numerator1*numerator2);
+            localResult[2] = (denominator1*denominator2);
 
             localResult = Reduction(localResult);
 
@@ -309,26 +309,26 @@ namespace GaussJordanRREFLib
 
         public static BigInteger[] Divide(BigInteger[] fraction1, BigInteger[] fraction2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Divide(fraction1[1], fraction1[2], fraction2[1], fraction2[2]);
             return localResult;
         }
 
         public static BigInteger[] Divide(BigInteger numerator1, BigInteger numerator2)
         {
-            BigInteger[] localResult = new BigInteger[3];
+            BigInteger[] localResult;
             localResult = Divide(numerator1, 1, numerator2, 1);
             return localResult;
         }
 
         public static BigInteger[] Divide(BigInteger numerator1, BigInteger denominator1,
-                                    BigInteger numerator2, BigInteger denominator2)
+            BigInteger numerator2, BigInteger denominator2)
         {
             BigInteger[] localResult = new BigInteger[3];
 
             localResult[0] = 4;
-            localResult[1] = (numerator1 * denominator2);
-            localResult[2] = (denominator1 * numerator2);
+            localResult[1] = (numerator1*denominator2);
+            localResult[2] = (denominator1*numerator2);
 
             localResult = Reduction(localResult);
 
@@ -339,160 +339,13 @@ namespace GaussJordanRREFLib
 
         private static BigInteger[] Reduction(BigInteger[] fractionValue)
         {
-            BigInteger[] fraction = fractionValue;
+            BigInteger[] result = fractionValue;
+            BigInteger gcd = BigInteger.GreatestCommonDivisor(result[1], result[2]);
 
-            // Non-zero value check. HQP 2016-3-12.
-            if (fractionValue[1] != 0 && fractionValue[2] != 0)
-            {
-                BigInteger integerTest;
+            result[1] = result[1]/gcd;
+            result[2] = result[2]/gcd;
 
-                BigInteger cfTest1;
-                BigInteger cfTest2;
-
-                BigInteger iterationCeiling;
-                BigInteger testCommonFactor = 2;
-
-                BigInteger squareRootTest;
-
-                BigInteger absTest1 = BigInteger.Abs(fraction[1]);
-                BigInteger absTest2 = BigInteger.Abs(fraction[2]);
-
-                #region Protocol when numerator equals denominator
-
-                if (fraction[1] == fraction[2])
-                {
-                    fraction[1] = 1;
-                    fraction[2] = 1;
-                }
-
-                #endregion
-
-                #region Protocol when ABS numerator equals ABS denominator
-
-                else if (absTest1 == absTest2)
-                {
-                    fraction[1] = fraction[1] / BigInteger.Abs(fraction[1]);
-                    fraction[2] = fraction[2] / BigInteger.Abs(fraction[2]);
-                }
-
-                #endregion
-
-                #region Protocol when numerator is less than denominator
-
-                else if (BigInteger.Abs(fraction[1]) < BigInteger.Abs(fraction[2]))
-                {
-                    integerTest = fraction[2] % fraction[1];
-
-                    #region When fraction is (1/n) form
-
-                    if (integerTest == 0)
-                    {
-                        fraction[1] = fraction[1] / BigInteger.Abs(fraction[1]);
-                        fraction[2] = fraction[2] / BigInteger.Abs(fraction[1]);
-                    }
-
-                    #endregion
-
-                    #region When fraction isn't in (1/n) form
-
-                    else
-                    {
-                        iterationCeiling = fraction[1];
-
-                        while (testCommonFactor <= iterationCeiling)
-                        {
-                            cfTest1 = fraction[1] % testCommonFactor;
-                            cfTest2 = fraction[2] % testCommonFactor;
-
-                            while (cfTest1 == 0 && cfTest2 == 0)
-                            {
-                                iterationCeiling /= testCommonFactor;
-
-                                fraction[1] /= testCommonFactor;
-                                fraction[2] /= testCommonFactor;
-
-                                cfTest1 = fraction[1] % testCommonFactor;
-                                cfTest2 = fraction[2] % testCommonFactor;
-                            }
-
-                            squareRootTest = testCommonFactor * testCommonFactor;
-
-                            if (squareRootTest > iterationCeiling)
-                            {
-                                testCommonFactor = iterationCeiling + 1;
-                            }
-
-                            testCommonFactor++;
-                        }
-                    }
-
-                    #endregion
-                }
-
-                #endregion
-
-                #region Protocol when numerator is greater than denominator
-
-                else if (BigInteger.Abs(fraction[2]) < BigInteger.Abs(fraction[1]))
-                {
-                    integerTest = fraction[1] % fraction[2];
-
-                    #region When fraction is n-form
-
-                    if (integerTest == 0)
-                    {
-                        fraction[1] = fraction[1] / BigInteger.Abs(fraction[2]);
-                        fraction[2] = fraction[2] / BigInteger.Abs(fraction[2]);
-                    }
-
-                    #endregion
-
-                    #region when fraction isn't n-form
-
-                    else
-                    {
-                        iterationCeiling = fraction[2];
-
-                        while (testCommonFactor <= iterationCeiling)
-                        {
-                            cfTest1 = fraction[1] % testCommonFactor;
-                            cfTest2 = fraction[2] % testCommonFactor;
-
-                            while (cfTest1 == 0 && cfTest2 == 0)
-                            {
-                                iterationCeiling /= testCommonFactor;
-
-                                fraction[1] /= testCommonFactor;
-                                fraction[2] /= testCommonFactor;
-
-                                cfTest1 = fraction[1] % testCommonFactor;
-                                cfTest2 = fraction[2] % testCommonFactor;
-                            }
-
-                            squareRootTest = testCommonFactor * testCommonFactor;
-
-                            if (squareRootTest > iterationCeiling)
-                            {
-                                testCommonFactor = iterationCeiling + 1;
-                            }
-
-                            testCommonFactor++;
-                        }
-                    }
-
-                    #endregion
-                }
-
-                #endregion
-            }
-
-            else
-            {
-                fractionValue[1] = 0;
-                fractionValue[2] = 1;
-            }
-
-            return fraction;
+            return result;
         }
     }
 }
